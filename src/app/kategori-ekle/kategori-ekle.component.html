@@ -1,0 +1,29 @@
+<div class="card p-5 shadow-2 border-round-lg surface-0">
+
+    <h2 class="mb-4 text-primary">Kategori Ekle</h2>
+
+
+    <form (ngSubmit)="kategoriEkle()" class="p-fluid">
+
+        <div class="field mb-4">
+            <label for="kategoriAd" class="block mb-2">Kategori Adı</label>
+            <input
+                id="kategoriAd"
+                name="kategoriAd"
+                type="text"
+                pInputText
+                required
+                placeholder="Eklenecek kategori adını giriniz"
+                [(ngModel)]="kategori.kategoriAd"
+                class="w-full"
+            />
+        </div>
+        <p-button
+            type="submit"
+            label="Ekle"
+            icon="pi pi-plus"
+            class="p-button-primary"
+        ></p-button>
+<p-toast></p-toast>
+    </form>
+</div>

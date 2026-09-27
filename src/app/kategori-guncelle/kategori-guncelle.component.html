@@ -1,0 +1,21 @@
+<div class="card p-4">
+    <h2>Kategori Güncelle</h2>
+
+    <div class="field">
+        <label for="kategoriAd">Kategori Adı:</label>
+        <input
+            pInputText
+            id="kategoriAd"
+            [(ngModel)]="kategori.kategoriAd"
+            class="w-full"
+        />
+    </div>
+    <p-toast></p-toast>
+    <button
+        pButton
+        type="button"
+        label="Güncelle"
+        class="p-button-warning mt-3"
+        (click)="kategoriGuncelle()"
+    ></button>
+</div>

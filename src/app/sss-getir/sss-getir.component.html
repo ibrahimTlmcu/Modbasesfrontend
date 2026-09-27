@@ -1,0 +1,85 @@
+<p-card header="" styleClass="mb-3">
+    <!-- Başlık ve Ekle butonu -->
+    <div class="flex mb-3">
+        <h2 class="m-0">Sık Sorulan Sorular</h2>
+        <button
+            pButton
+            type="button"
+            label="SSS Ekle"
+            icon="pi pi-plus"
+            class="p-button-success"
+            (click)="sssEkleyeGit()"
+        ></button>
+    </div>
+
+    <p-table
+        [value]="faqList"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Toplam {totalRecords} kayıt"
+        [rowsPerPageOptions]="[5,10,20]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Soru</th>
+                <th>Cevap</th>
+                <th>Durum</th>
+                <th></th> <!-- Buton sütunu -->
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-faq>
+            <tr>
+                <td>{{ faq.id }}</td>
+                <td>{{ faq.question }}</td>
+                <td>{{ faq.answer }}</td>
+
+                <!-- Durum metni (Taleplerim ile aynı mantık) -->
+                <td>
+                    <span *ngIf="faq.durum === 1" class="text-green-600 font-semibold">Aktif</span>
+                    <span *ngIf="faq.durum !== 1" class="text-yellow-600 font-semibold">Taslak</span>
+                </td>
+
+                <!-- İşlemler (Taleplerim’deki buton sütununa denk) -->
+                <td>
+                    <p-button
+                        label="Düzenle"
+                        icon="pi pi-pencil"
+                        class="p-button-warning p-button-text p-button-sm"
+                        (click)="duzenle(faq.id)">
+                    </p-button>
+
+                    <p-button
+                        label="Sil"
+                        icon="pi pi-trash"
+                        class="p-button-danger p-button-text p-button-sm"
+                        (click)="sssSil(faq.id)">
+                    </p-button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5" class="text-center">Kayıt bulunamadı.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-toast></p-toast>
+</p-card>
+
+<style>
+    .flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    th:last-child,
+    td:last-child {
+        text-align: center;
+        white-space: nowrap;
+    }
+</style>

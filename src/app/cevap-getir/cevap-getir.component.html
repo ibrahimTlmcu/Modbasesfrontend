@@ -1,0 +1,34 @@
+<div class="cevap-page">
+    <h2 class="page-title">
+        📜 Talebe Verilen Cevaplar
+    </h2>
+
+    <div *ngIf="cevaplar.length > 0; else noData">
+        <div *ngFor="let c of cevaplar" class="cevap-card">
+            <div class="cevap-header">
+                <div class="cevap-title">
+                    {{ c.baslik || 'Cevap' }}
+                </div>
+                <div class="cevap-date">
+                    {{ c.tarih | date:'dd.MM.yyyy HH:mm' }}
+                </div>
+            </div>
+
+
+            <div class="cevap-body">
+                {{ c.cevapMetni }}
+            </div>
+
+            <div class="cevap-footer">
+                <span><strong>Cevaplayan:</strong> {{ c.cevaplayan || 'Bilinmiyor' }}</span>
+
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noData>
+        <div class="no-data-msg">
+            Henüz bu talebe cevap verilmemiş.
+        </div>
+    </ng-template>
+</div>

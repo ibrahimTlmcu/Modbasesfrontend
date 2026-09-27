@@ -1,0 +1,42 @@
+<div class="card p-5 shadow-2 border-round-lg surface-0">
+    <h2 class="mb-4 text-primary">SSS Güncelle</h2>
+
+    <form (ngSubmit)="sssGuncelle()" class="p-fluid" *ngIf="faq">
+        <div class="field mb-4">
+            <label for="question" class="block mb-2">Soru</label>
+            <input
+                id="question"
+                name="question"
+                type="text"
+                pInputText
+                required
+                placeholder="Soruyu giriniz"
+                [(ngModel)]="faq.question"
+                class="w-full"
+            />
+        </div>
+
+        <div class="field mb-4">
+            <label for="answer" class="block mb-2">Cevap</label>
+            <textarea
+                id="answer"
+                name="answer"
+                pInputTextarea
+                required
+                rows="5"
+                placeholder="Cevabı giriniz"
+                [(ngModel)]="faq.answer"
+                class="w-full"
+            ></textarea>
+        </div>
+
+        <p-button
+            type="submit"
+            label="Güncelle"
+            icon="pi pi-check"
+            class="p-button-primary"
+        ></p-button>
+
+        <p-toast></p-toast>
+    </form>
+</div>

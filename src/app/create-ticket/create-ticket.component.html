@@ -1,0 +1,41 @@
+<!-- Eğer PrimeNG kullanmak istemezsen pButton ve pInputText kaldırdım, istersen geri ekleriz -->
+<div class="page-container">
+    <div class="ticket-wrapper">
+        <form (ngSubmit)="createTicket()" class="ticket-form" novalidate>
+            <div class="header">
+                <div class="title">
+                    <h1>Destek Talebi Oluştur</h1>
+                    <p class="subtitle">Sorununuzu kısa ve net yazın</p>
+                </div>
+                <div class="user-badge blinking">
+                    <div class="dot"></div>  <!-- ← Yanıp sönen daire -->
+                    <div class="user-info">
+                        <div class="label">Oturum Açan</div>
+                        <div class="name">{{ username }}</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="field">
+                <label for="subject">Konu</label>
+                <input
+                    id="subject"
+                    type="text"
+                    [(ngModel)]="subject"
+                    name="subject"
+                    placeholder="Sorununuzu özetleyin"
+                    required
+                    class="subject-input"
+                />
+                <div *ngIf="!subject" class="error">Konu zorunludur.</div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn fill" [disabled]="!subject">Talebi Aç</button>
+
+
+            </div>
+        </form>
+    </div>
+</div>

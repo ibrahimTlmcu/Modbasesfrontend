@@ -1,0 +1,38 @@
+/* destek-talep.component.scss */
+
+/* Artık full ekran değil, sayfa içeriği gibi */
+.tam-sayfa-kapsayici {
+    background: linear-gradient(to right, #eef1f5, #dbe5f1);
+    padding: 2rem;
+    border-radius: 0.5rem;
+}
+
+/* Card görünümü korunuyor ama ortalama yok */
+.form-karti {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    max-width: 800px; /* Daha geniş olabilir */
+    margin: 0 auto;   /* Ortada hizalar ama tüm yükseklik kaplamaz */
+}
+
+.baslik {
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+input,
+textarea,
+.p-dropdown {
+    width: 100%;
+    margin-bottom: 1rem;
+}

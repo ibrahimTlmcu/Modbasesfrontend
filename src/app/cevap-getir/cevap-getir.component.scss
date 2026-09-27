@@ -1,0 +1,75 @@
+.cevap-page {
+    background: #f5f7fa;
+    min-height: 100vh;
+    padding: 2rem;
+}
+
+.page-title {
+    text-align: left;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #1d3557;
+}
+
+.cevap-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease;
+    width: 100%;
+
+    &:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+}
+
+.cevap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.cevap-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #264653;
+}
+
+.cevap-date {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.cevap-body {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 1rem;
+    white-space: pre-line;
+}
+
+.cevap-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: #555;
+
+    strong {
+        color: #1d3557;
+    }
+}
+
+.no-data-msg {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 3rem 0;
+    font-size: 1.2rem;
+}

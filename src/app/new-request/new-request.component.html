@@ -1,0 +1,16 @@
+<div class="new-request-container">
+    <h2>Yeni Destek Talebi Oluştur</h2>
+
+    <label for="subject">Konu:</label>
+    <input
+        id="subject"
+        [(ngModel)]="subject"
+        placeholder="Destek talebinizin konusunu yazın"
+        name="subject"
+        required
+    />
+
+    <button type="button" (click)="create()">
+        Talebi Oluştur
+    </button>
+</div>

@@ -1,0 +1,57 @@
+<p-panel header="📥 Gelen Talep" [toggleable]="true" class="talep-panel custom-panel">
+    <div class="talep-detay">
+        <div class="talep-item">
+            <i class="pi pi-user"></i>
+            <strong>Ad Soyad:</strong>
+            <span>{{ talep?.adSoyad }}</span>
+        </div>
+        <div class="talep-item">
+            <i class="pi pi-envelope"></i>
+            <strong>Email:</strong>
+            <span>{{ talep?.email }}</span>
+        </div>
+        <div class="talep-item">
+            <i class="pi pi-tag"></i>
+            <strong>Konu:</strong>
+            <span>{{ talep?.konu }}</span>
+        </div>
+        <div class="talep-item">
+            <i class="pi pi-comment"></i>
+            <strong>Mesaj:</strong>
+            <span>{{ talep?.aciklama }}</span>
+        </div>
+    </div>
+</p-panel>
+
+<p-divider></p-divider>
+
+<p-panel header="✏️ Talebe Cevap Yaz" class="cevap-panel custom-panel">
+    <div class="p-fluid">
+        <div class="field">
+            <label for="cevap"><strong>Cevabınız</strong></label>
+            <textarea
+                style="background-color: #f8f9fa"
+                id="cevap"
+                [(ngModel)]="cevap"
+                pInputTextarea
+                rows="6"
+                autoResize="true"
+                placeholder="Cevabınızı buraya yazınız..."
+                class="w-full"
+            ></textarea>
+        </div>
+
+        <div class="field mt-3 text-right">
+            <button
+                pButton
+                type="button"
+                icon="pi pi-send"
+                label="Gönder"
+                class="p-button-rounded p-button-success"
+                (click)="talepCevapla()"
+            ></button>
+        </div>
+    </div>
+</p-panel>
+
+<p-toast></p-toast>

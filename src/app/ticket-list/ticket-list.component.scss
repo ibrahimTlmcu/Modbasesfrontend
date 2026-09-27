@@ -1,0 +1,94 @@
+// ticket-list.component.scss
+
+// Renk ve gölge değişkenleri
+$primary-color: #4a90e2;
+$secondary-color: #f5f7fa;
+$text-color: #333;
+$card-bg: #fff;
+$card-border: #e0e4e8;
+$shadow-color: rgba(0, 0, 0, 0.1);
+
+:host {
+    display: block;
+    padding: 1.5rem;
+    background: $secondary-color;
+    min-height: 100%;
+}
+
+h2 {
+    margin-bottom: 1rem;
+    color: $primary-color;
+    font-size: 1.75rem;
+    border-left: 4px solid $primary-color;
+    padding-left: 0.75rem;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-gap: 1rem;
+
+    // iki sütun isterseniz:
+    // grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: $card-bg;
+    border: 1px solid $card-border;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 2px 4px $shadow-color;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px $shadow-color;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .subject {
+            font-weight: 600;
+            color: $text-color;
+        }
+        .user {
+            font-size: 0.9rem;
+            color: darken($text-color, 20%);
+        }
+    }
+
+    button {
+        background: $primary-color;
+        border: none;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.375rem;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: darken($primary-color, 10%);
+        }
+    }
+}
+
+// Eğer HTML’inizi aşağıdaki gibi organize ederseniz, SCSS’ten tam fayda alırsınız:
+//
+// <ul>
+//   <li *ngFor="let t of tickets">
+//     <div class="info">
+//       <div class="subject">Konu: {{ t.subject }}</div>
+//       <div class="user">Talep Eden: {{ t.user }}</div>
+//     </div>
+//     <button (click)="join(t)">Katıl</button>
+//   </li>
+// </ul>

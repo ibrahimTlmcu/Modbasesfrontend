@@ -1,0 +1,13 @@
+.card {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.text-primary {
+    color: var(--primary-color, #3b82f6);
+}
+
+.field .p-inputtextarea,
+.field .p-inputtext {
+    width: 100%;
+}

@@ -1,0 +1,75 @@
+<p-card header="" styleClass="mb-3">
+    <!-- Başlık ve Ekle butonu -->
+    <div class="flex mb-3">
+        <h2 class="m-0">Kategoriler</h2>
+        <button
+            pButton
+            type="button"
+            label="Kategori Ekle"
+            icon="pi pi-plus"
+            class="p-button-success"
+            (click)="kategoriEkleyeGit()"
+        ></button>
+    </div>
+
+    <p-table
+        [value]="kategoriList"
+        [paginator]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Toplam {totalRecords} kayıt"
+        [rowsPerPageOptions]="[5,10,20]"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>Kategori Adı</th>
+                <th style="text-align: right; width: 10rem;">İşlemler</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-kategori>
+            <tr>
+                <td>{{ kategori.kategoriId }}</td>
+                <td>{{ kategori.kategoriAd }}</td>
+
+                <!-- Butonlar sağa yaslı -->
+                <td style="text-align: right; white-space: nowrap;">
+                    <p-button
+                        label = "Düzenle"
+                        icon="pi pi-pencil"
+                        class="p-button-rounded p-button-warning p-button-text p-button-sm"
+                        (click)="duzenle(kategori.kategoriId)"
+                    ></p-button>
+
+                    <p-button
+                        label = "Sil"
+                        icon="pi pi-trash"
+                        styleClass="width: 50px"
+                        class="p-button-rounded p-button-danger p-button-text p-button-sm ml-2"
+                        (click)="kategoriSil(kategori.kategoriId)"
+                    ></p-button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="3" class="text-center">Kayıt bulunamadı.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <p-toast></p-toast>
+</p-card>
+
+<style>
+    .flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .ml-2 {
+        margin-left: 8px;
+    }
+</style>

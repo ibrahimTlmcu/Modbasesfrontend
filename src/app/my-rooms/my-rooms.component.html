@@ -1,0 +1,82 @@
+<div class="py-4 px-2 w-full max-w-none mx-0">
+    <h2 class="text-4xl  mb-6 text-primary flex items-center gap-2">
+        <i class="pi pi-comments text-primary"></i>
+        Geçmiş Destek Taleplerim
+    </h2>
+
+    <!-- Filtre -->
+    <div class="flex flex-wrap gap-3 mb-6 items-center">
+        <p-dropdown
+            [options]="statusOptions"
+            [(ngModel)]="filter"
+            (onChange)="onFilterChange()"
+            optionLabel="label"
+            optionValue="value"
+            styleClass="w-full sm:w-64">
+        </p-dropdown>
+
+        <button
+            pButton
+            label="Uygula"
+            icon="pi pi-filter"
+            class="p-button-primary"
+            (click)="load()">
+        </button>
+    </div>
+
+    <!-- Liste -->
+    <div *ngIf="rooms.length; else empty" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-5">
+        <div *ngFor="let r of rooms" class="relative bg-white border rounded-xl shadow hover:shadow-lg transition overflow-hidden">
+            <!-- Açık/Kapalı oda göstergesi -->
+            <span *ngIf="r.status==='OPEN'" class="absolute top-3 right-3 online-dot"></span>
+            <span *ngIf="r.status==='CLOSED'" class="absolute top-3 right-3 offline-dot"></span>
+
+            <!-- Kart içeriği -->
+            <div class="p-4 md:p-5 flex flex-col h-full">
+                <div class="mb-3">
+                    <h3 class="text-lg font-semibold mb-1">{{ r.subject }}</h3>
+                    <div class="flex items-center gap-2 text-sm">
+                        <span class="px-2 py-1 rounded-full text-xs font-semibold"
+                              [ngClass]="{
+                                'bg-green-100 text-green-700': r.status === 'OPEN',
+                                'bg-blue-100 text-blue-700': r.status === 'ASSIGNED',
+                                'bg-gray-200 text-gray-700': r.status === 'CLOSED'
+                              }">
+                          {{ r.status }}
+                        </span>
+                        <span class="text-gray-500">
+                          {{ r.createdAt | date:'dd/MM/yyyy HH:mm' }}
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Butonlar -->
+                <div class="mt-auto flex gap-2">
+                    <button
+                        pButton
+                        label="Görüntüle"
+                        icon="pi pi-eye"
+                        class="p-button-sm p-button-info w-full"
+                        (click)="open(r.id)">
+                    </button>
+
+                    <button
+                        *ngIf="r.status!=='CLOSED'"
+                        pButton
+                        label="Sohbete Dön"
+                        icon="pi pi-reply"
+                        class="p-button-sm p-button-success w-full"
+                        (click)="resume(r.id)">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Boş liste -->
+    <ng-template #empty>
+        <div class="text-gray-500 text-center p-6 border rounded-lg bg-gray-50">
+            <i class="pi pi-info-circle mr-2"></i> Kayıt bulunamadı.
+        </div>
+    </ng-template>
+</div>
