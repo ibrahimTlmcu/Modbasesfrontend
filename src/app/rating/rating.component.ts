@@ -35,7 +35,7 @@ export class RatingComponent {
             Swal.fire('Uyarı','Lütfen 1-5 arası bir puan seçin','warning');
             return;
         }
-
+    //Tablo eklenencek unutma
         this.http.post('http://localhost:8081/api/ratings', {
             roomId: this.roomId,
             rater: this.rater,
