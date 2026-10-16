@@ -9,7 +9,7 @@ import {User} from '../models/User';
     providedIn: 'root'
 })
 export class UserService {
-    private apiUrl = 'http://localhost:8080'; // Spring Boot endpoint
+    private apiUrl = 'http://localhost:8081'; // Spring Boot endpoint
 
     constructor(private http: HttpClient) {}
 

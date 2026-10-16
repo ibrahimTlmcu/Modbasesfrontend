@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /panel/
+Disallow: /search?
+
+Sitemap: https://modebases.com/sitemap.xml

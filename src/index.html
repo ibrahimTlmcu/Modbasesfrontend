@@ -1,21 +1,164 @@
 <!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Sakai - PrimeNG</title>
-        <base href="/" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.o" />
-        <link rel="preconnect" href="https://primefaces.org" />
-        <link rel="icon" type="image/x-icon" href="https://primefaces.org/cdn/primeng/images/favicon.png" />
-        <link href="https://fonts.cdnfonts.com/css/lato" rel="stylesheet" />
-    </head>
+<html lang="tr">
+<head>
+    <!-- Temel SEO Etiketleri -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModeBases - Oyun Modları, Yamalar ve Eklenti Merkezi</title>
+    <meta name="description" content="ModeBases ile en güncel, güvenli ve hızlı indirilebilir oyun modları, grafik paketleri, haritalar ve Türkçe yamalara tek noktadan ulaşın.">
+    <meta name="robots" content="index, follow">
 
-    <body>
-    <p-toast></p-toast>
-        <app-root></app-root>
-    </body>
-</html>
-<!-- src/index.html -->
-<script>
-    window.global = window;
+    <!-- Kopya İçerik Önleyici (Canonical) Etiket -->
+    <link rel="canonical" href="https://modebases.com/" />
+
+    <!-- Favicon Tanımlamaları -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <!-- Sosyal Medya, Discord ve WhatsApp Paylaşımları İçin (Open Graph) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ModeBases">
+    <meta property="og:title" content="ModeBases - Oyun Modları ve Yamalar">
+    <meta property="og:description" content="Oyun deneyiminizi katlayacak en güncel modları ve yamaları hemen keşfedin ve indirin.">
+    <meta property="og:url" content="https://modebases.com/">
+    <meta property="og:image" content="https://modebases.com/assets/og-banner.jpg">
+    <meta property="og:locale" content="tr_TR">
+
+    <!-- Twitter (X) Kartları -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ModeBases - Oyun Modları ve Yamalar">
+    <meta name="twitter:description" content="En güncel ve güvenli oyun modlarını hemen keşfedin ve indirin.">
+    <meta name="twitter:image" content="https://modebases.com/assets/og-banner.jpg">
+    <meta charset="utf-8">
+    <title>Modindir</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "ModeBases",
+            "url": "https://modebases.com/",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://modebases.com/search?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+</head>
+<!-- Çerez (Cookie) Uyarı Kutusu -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.css">
+<script type="module">
+    import 'https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js';
+
+    CookieConsent.run({
+        guiOptions: {
+            consentModal: { layout: 'box inline', position: 'bottom right' }
+        },
+        categories: {
+            necessary: { enabled: true, readOnly: true },
+            analytics: {}
+        },
+        language: {
+            default: 'tr',
+            translations: {
+                tr: {
+                    consentModal: {
+                        title: 'Çerez Kullanımı 🍪',
+                        description: 'ModeBases olarak size daha iyi bir deneyim sunmak ve site trafiğini analiz etmek için çerezleri (cookies) kullanıyoruz. Detaylar için <a href="/gizlilik-politikasi">Gizlilik Politikamızı</a> inceleyebilirsiniz.',
+                        acceptAllBtn: 'Tümünü Kabul Et',
+                        acceptNecessaryBtn: 'Sadece Zorunlular',
+                        showPreferencesBtn: 'Ayarlar'
+                    },
+                    preferencesModal: {
+                        title: 'Çerez Tercihleri',
+                        acceptAllBtn: 'Tümünü Kabul Et',
+                        acceptNecessaryBtn: 'Sadece Zorunlular',
+                        savePreferencesBtn: 'Seçimi Kaydet',
+                        sections: [
+                            {
+                                title: 'Zorunlu Çerezler',
+                                description: 'Sitenin düzgün çalışması (oturum, güvenlik vb.) için şart olan çerezlerdir.',
+                                linkedCategory: 'necessary'
+                            },
+                            {
+                                title: 'Analiz Çerezleri',
+                                description: 'Sitemizi kaç kişinin ziyaret ettiğini anlamamızı sağlar.',
+                                linkedCategory: 'analytics'
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    });
 </script>
+<body>
+<app-root></app-root>
+
+<!-- OTOMATİK ÇEVİRİ KODU BAŞLANGICI -->
+<!-- MODERN OTOMATİK ÇEVİRİ KODU -->
+<div class="gtranslate_wrapper"></div>
+
+<script>
+    window.gtranslateSettings = {
+        "default_language": "tr",
+        "detect_browser_language": true,
+        "languages": ["tr", "en"],
+        "wrapper_selector": ".gtranslate_wrapper"
+    }
+</script>
+<!-- Bayraksız, sadece temiz TR / EN metin modu (ln.js) -->
+<script src="https://cdn.gtranslate.net/widgets/latest/ln.js" defer></script>
+
+<style>
+    /* Sağ altta modern, yarı saydam (glassmorphism) kapsül görünümü */
+    .gtranslate_wrapper {
+        position: fixed;
+        bottom: 24px;
+        right: 24px;
+        z-index: 9999;
+        background: rgba(15, 23, 42, 0.85); /* Sitenin koyu lacivert/siyah tonu */
+        backdrop-filter: blur(10px);
+        padding: 6px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        gap: 4px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    /* TR ve EN butonlarının kendi stili */
+    .gtranslate_wrapper a {
+        color: #94a3b8 !important;
+        text-decoration: none !important;
+        font-family: 'Inter', system-ui, sans-serif;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        padding: 6px 14px !important;
+        border-radius: 999px !important;
+        transition: all 0.2s ease !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Üzerine gelindiğinde (Hover) */
+    .gtranslate_wrapper a:hover {
+        color: #ffffff !important;
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Seçili olan aktif dil (Sitenin mavi-yeşil temasına uyumlu) */
+    .gtranslate_wrapper a.gt-current-lang {
+        background: linear-gradient(135deg, #10b981, #059669) !important;
+        color: #ffffff !important;
+        box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35);
+    }
+</style>
+<!-- OTOMATİK ÇEVİRİ KODU BİTİŞİ -->
+
+</body>
+</html>

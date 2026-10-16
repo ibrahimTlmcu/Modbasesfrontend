@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KullaniciProfilComponent } from './kullanici-profil.component';
+import KullaniciProfilComponent from './kullanici-profil.component';
 
 describe('KullaniciProfilComponent', () => {
   let component: KullaniciProfilComponent;

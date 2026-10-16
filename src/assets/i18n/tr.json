@@ -1,0 +1,11 @@
+{
+    "HEADER": {
+        "HOME": "Ana Sayfa",
+        "CATEGORIES": "Kategoriler",
+        "SEARCH_PLACEHOLDER": "Mod ara..."
+    },
+    "MOD_CARD": {
+        "DOWNLOAD": "Hemen İndir",
+        "SIZE": "Boyut"
+    }
+}

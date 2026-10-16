@@ -1,0 +1,1127 @@
+.mod-detail-container {
+    width: 100%;
+    padding: 2rem 5%;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
+    &:hover { text-decoration: underline; }
+}
+
+.mod-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+
+    h1 { margin: 0; color: #2c3e50; }
+    .badge { background-color: #28a745; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; }
+}
+
+.mod-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 2.5rem;
+}
+
+.image-box {
+    width: 100%;
+    height: 250px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    &:hover img { transform: scale(1.05); }
+}
+
+.mod-info-full {
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.info-text {
+    flex: 2.5;
+    min-width: 400px;
+
+    h3 { color: #34495e; border-left: 4px solid #007bff; padding-left: 10px; margin-top: 0; }
+    p, ul { color: #555; line-height: 1.6; font-size: 1.05rem; }
+    ul { padding-left: 20px; margin-bottom: 2rem; }
+    li { margin-bottom: 8px; }
+}
+
+.download-section {
+    flex: 1;
+    min-width: 300px;
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.btn-download {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    text-decoration: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 6px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.2s;
+    &:hover { background-color: #c82333; }
+}
+
+.kurulum-notu {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #666;
+    text-align: left;
+}
+
+.mod-video-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #eee;
+    width: 100%;
+}
+
+.video-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    border-left: 4px solid #dc3545;
+    padding-left: 10px;
+}
+
+.video-desc {
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    background-color: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}/* ==========================================================================
+   YORUM BÖLÜMÜ - AÇIK & PASTEL GRADYEN TASARIM
+   ========================================================================== */
+/* ==========================================================================
+   YORUM BÖLÜMÜ - KOMPAKT & ŞIK PASTEL TASARIM
+   ========================================================================== */
+
+.comment-section-wrapper {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    color: #334155;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 25px;
+    border: 1px solid #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #0f172a;
+    }
+}
+
+.comment-form-box {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+    transition: all 0.2s ease;
+
+    &:focus-within {
+        border-color: #0ea5e9;
+        box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.1);
+    }
+}
+
+/* Textarea ve Yanıt Gönder Butonu */
+.textarea-container {
+    position: relative;
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        color: #1e293b;
+        resize: vertical;
+        outline: none;
+        font-size: 13px;
+        line-height: 1.4;
+        min-height: 60px; /* Boyut küçültüldü */
+
+        &::placeholder {
+            color: #94a3b8;
+        }
+    }
+}
+
+.textarea-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+}
+
+.btn-reply-action {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: #e2e8f0;
+        color: #1e293b;
+    }
+}
+
+/* Zengin Metin Araç Çubuğu (Toolbar) */
+.editor-toolbar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+
+    button {
+        background-color: #f1f5f9;
+        color: #475569;
+        border: 1px solid #cbd5e1;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+            border-color: #94a3b8;
+        }
+
+        &.spoiler-btn {
+            font-weight: 700;
+            font-size: 10px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #d97706;
+            border-color: #fcd34d;
+        }
+    }
+}
+
+/* Kullanıcı Bilgi Alanı */
+.user-info-inputs {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d1fae5;
+
+    .info-label {
+        font-size: 12px;
+        color: #047857;
+        font-weight: 600;
+    }
+
+    .input-row {
+        display: flex;
+
+        input {
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #a7f3d0;
+            border-radius: 6px;
+            padding: 8px 10px;
+            color: #065f46;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s ease;
+
+            &::placeholder {
+                color: #6ee7b7;
+            }
+
+            &:focus {
+                border-color: #10b981;
+                box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+            }
+        }
+    }
+
+    .privacy-note {
+        font-size: 10px;
+        color: #059669;
+    }
+}
+
+/* Ana Gönder Butonu */
+.form-submit-row {
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-submit-main {
+        background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        color: #ffffff;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 6px rgba(14, 165, 233, 0.2);
+
+        &:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+    }
+}
+
+/* Yorumlar Listesi */
+.comments-list {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .comment-item {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 14px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 6px;
+
+            strong {
+                color: #0f172a;
+                font-weight: 700;
+            }
+
+            .comment-date {
+                color: #94a3b8;
+                font-size: 11px;
+            }
+        }
+
+        .comment-body {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+    }
+
+    .no-comments {
+        color: #64748b;
+        font-size: 13px;
+        text-align: center;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px dashed #cbd5e1;
+        border-radius: 10px;
+    }
+}
+/* Yorumlar Listesi */
+.comments-list {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .comment-item {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.01);
+        transition: all 0.2s ease;
+
+        &:hover {
+            border-color: #cbd5e1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+
+            strong {
+                color: #0f172a;
+                font-weight: 700;
+            }
+
+            .comment-date {
+                color: #94a3b8;
+                font-size: 12px;
+            }
+        }
+
+        .comment-body {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+    }
+
+    .no-comments {
+        color: #64748b;
+        font-size: 14px;
+        text-align: center;
+        padding: 30px;
+        background-color: #ffffff;
+        border: 1px dashed #cbd5e1;
+        border-radius: 12px;
+    }
+}
+/* ==========================================================================
+   İKİ SÜTUNLU YERLEŞİM (GRID) - MOD DETAY & YORUMLAR & WİDGET
+   ========================================================================== */
+.mod-details-grid-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Sol taraf geniş, sağ taraf sidebar */
+    gap: 24px;
+    margin-top: 35px;
+    align-items: start;
+
+    /* Mobil ekranlarda tek sütuna düşür */
+    @media (max-width: 968px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.left-comments-column {
+    width: 100%;
+}
+
+.right-sidebar-column {
+    width: 100%;
+}
+
+/* ==========================================================================
+   SAĞ TARAF: SON EKLENEN MODLAR WİDGET TASARIMI
+   ========================================================================== */
+.sidebar-widget {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+}
+
+.latest-mods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.latest-mod-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 10px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+
+    img {
+        width: 55px;
+        height: 55px;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+
+    .mod-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .mod-cat {
+            font-size: 10px;
+            font-weight: 600;
+            color: #0ea5e9;
+            background: #e0f2fe;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+    }
+
+    &:hover {
+        border-color: #0ea5e9;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(14, 165, 233, 0.1);
+    }
+}
+
+.no-mods {
+    text-align: center;
+    padding: 15px;
+}
+
+/* ==========================================================================
+   SOL TARAF: YORUM BÖLÜMÜ KOMPAKT & PASTEL STİLLERİ
+   ========================================================================== */
+.comment-section-wrapper {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    color: #334155;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+
+    h3 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        color: #0f172a;
+    }
+}
+
+.comment-form-box {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+.textarea-container {
+    position: relative;
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+
+    textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        color: #1e293b;
+        resize: vertical;
+        outline: none;
+        font-size: 13px;
+        line-height: 1.4;
+        min-height: 60px;
+
+        &::placeholder {
+            color: #94a3b8;
+        }
+    }
+}
+
+.textarea-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 6px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+}
+
+.btn-reply-action {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: #e2e8f0;
+        color: #1e293b;
+    }
+}
+
+.editor-toolbar {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+
+    button {
+        background-color: #f1f5f9;
+        color: #475569;
+        border: 1px solid #cbd5e1;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+
+        &.spoiler-btn {
+            font-weight: 700;
+            font-size: 10px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #d97706;
+            border-color: #fcd34d;
+        }
+    }
+}
+
+.user-info-inputs {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d1fae5;
+
+    .info-label {
+        font-size: 12px;
+        color: #047857;
+        font-weight: 600;
+    }
+
+    .input-row {
+        display: flex;
+
+        input {
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #a7f3d0;
+            border-radius: 6px;
+            padding: 8px 10px;
+            color: #065f46;
+            font-size: 13px;
+            outline: none;
+
+            &::placeholder {
+                color: #6ee7b7;
+            }
+
+            &:focus {
+                border-color: #10b981;
+                box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.15);
+            }
+        }
+    }
+
+    .privacy-note {
+        font-size: 10px;
+        color: #059669;
+    }
+}
+
+.form-submit-row {
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-submit-main {
+        background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        color: #ffffff;
+        border: none;
+        padding: 8px 18px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(14, 165, 233, 0.2);
+
+        &:hover {
+            opacity: 0.92;
+        }
+    }
+}
+
+.comments-list {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .comment-item {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 14px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            margin-bottom: 6px;
+
+            strong {
+                color: #0f172a;
+                font-weight: 700;
+            }
+
+            .comment-date {
+                color: #94a3b8;
+                font-size: 11px;
+            }
+        }
+
+        .comment-body {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+    }
+
+    .no-comments {
+        color: #64748b;
+        font-size: 13px;
+        text-align: center;
+        padding: 20px;
+        background-color: #ffffff;
+        border: 1px dashed #cbd5e1;
+        border-radius: 10px;
+    }
+}/* ==========================================================================
+   İKİ SÜTUNLU YERLEŞİM (GRID) - DAHA GENİŞ & FERAH
+   ========================================================================== */
+.mod-details-grid-container {
+    display: grid;
+    grid-template-columns: 2.4fr 1.1fr; /* Sol taraf ve sağ sidebar genişliği dengelendi ve büyütüldü */
+    gap: 30px;
+    margin-top: 40px;
+    align-items: start;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+
+    /* Mobil ekranlarda tek sütuna düşür */
+    @media (max-width: 968px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.left-comments-column {
+    width: 100%;
+}
+
+.right-sidebar-column {
+    width: 100%;
+}
+
+/* ==========================================================================
+   SAĞ TARAF: SON EKLENEN MODLAR WİDGET TASARIMI
+   ========================================================================== */
+.sidebar-widget {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+
+    h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 18px;
+        color: #0f172a;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+}
+
+.latest-mods-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.latest-mod-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+    img {
+        width: 65px;
+        height: 65px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .mod-info {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+
+        h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .mod-cat {
+            font-size: 11px;
+            font-weight: 600;
+            color: #0ea5e9;
+            background: #e0f2fe;
+            padding: 3px 8px;
+            border-radius: 6px;
+            width: fit-content;
+        }
+    }
+
+    &:hover {
+        border-color: #0ea5e9;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(14, 165, 233, 0.12);
+    }
+}
+
+.no-mods {
+    text-align: center;
+    padding: 20px;
+}
+
+/* ==========================================================================
+   SOL TARAF: YORUM BÖLÜMÜ (DAHA GENİŞ VE OKUNAKLI)
+   ========================================================================== */
+.comment-section-wrapper {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    color: #334155;
+    padding: 28px;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+
+    h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        color: #0f172a;
+    }
+}
+
+.comment-form-box {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.textarea-container {
+    position: relative;
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+
+    textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        color: #1e293b;
+        resize: vertical;
+        outline: none;
+        font-size: 14px;
+        line-height: 1.5;
+        min-height: 85px; /* Yorum yazma alanı biraz daha rahatlatıldı */
+
+        &::placeholder {
+            color: #94a3b8;
+        }
+    }
+}
+
+.textarea-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 8px;
+}
+
+.btn-reply-action {
+    background-color: #f1f5f9;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background-color: #e2e8f0;
+        color: #1e293b;
+    }
+}
+
+.editor-toolbar {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+
+    button {
+        background-color: #f1f5f9;
+        color: #475569;
+        border: 1px solid #cbd5e1;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 12px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+
+        &.spoiler-btn {
+            font-weight: 700;
+            font-size: 11px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #d97706;
+            border-color: #fcd34d;
+        }
+    }
+}
+
+.user-info-inputs {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+    padding: 16px;
+    border-radius: 10px;
+    border: 1px solid #d1fae5;
+
+    .info-label {
+        font-size: 13px;
+        color: #047857;
+        font-weight: 600;
+    }
+
+    .input-row {
+        display: flex;
+
+        input {
+            width: 100%;
+            background-color: #ffffff;
+            border: 1px solid #a7f3d0;
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: #065f46;
+            font-size: 14px;
+            outline: none;
+
+            &::placeholder {
+                color: #6ee7b7;
+            }
+
+            &:focus {
+                border-color: #10b981;
+                box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+            }
+        }
+    }
+
+    .privacy-note {
+        font-size: 11px;
+        color: #059669;
+    }
+}
+
+.form-submit-row {
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-submit-main {
+        background: linear-gradient(135deg, #0ea5e9, #0284c7);
+        color: #ffffff;
+        border: none;
+        padding: 10px 22px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 3px 8px rgba(14, 165, 233, 0.25);
+
+        &:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+    }
+}
+
+.comments-list {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    .comment-item {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 8px;
+
+            strong {
+                color: #0f172a;
+                font-weight: 700;
+            }
+
+            .comment-date {
+                color: #94a3b8;
+                font-size: 12px;
+            }
+        }
+
+        .comment-body {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+            word-break: break-word;
+        }
+    }
+
+    .no-comments {
+        color: #64748b;
+        font-size: 14px;
+        text-align: center;
+        padding: 24px;
+        background-color: #ffffff;
+        border: 1px dashed #cbd5e1;
+        border-radius: 12px;
+    }
+}
+@media (max-width: 1100px) {
+    .mod-gallery { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+    .mod-gallery { grid-template-columns: 1fr; }
+    .info-text, .download-section { min-width: 100%; }
+}

@@ -10,6 +10,7 @@
                     "style": "scss"
                 }
             },
+
             "root": "",
             "sourceRoot": "src",
             "prefix": "app",
@@ -26,10 +27,11 @@
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
-                            {
-                                "glob": "**/*",
-                                "input": "public"
-                            }
+                            "src/favicon.ico",
+                            "src/assets",
+                            "src/robots.txt",
+                            "src/sitemap.xml"
+
                         ],
                         "styles": [
                             "src/styles.scss"
@@ -46,8 +48,8 @@
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "2kb",
-                                    "maximumError": "4kb"
+                                    "maximumWarning": "10kb",
+                                    "maximumError": "20kb"
                                 }
                             ],
                             "outputHashing": "all"

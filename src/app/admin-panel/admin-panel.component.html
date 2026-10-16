@@ -1,0 +1,205 @@
+<div class="admin-dashboard-container">
+    <!-- Üst Başlık ve Sekme Menüsü -->
+    <header class="admin-topbar">
+        <div class="header-title">
+            <h1>Yönetim Paneli</h1>
+            <p>Sisteme yeni kategori veya içerik / mod ekleyin</p>
+        </div>
+        <div class="tab-buttons">
+            <button [class.active]="activeTab === 'mod'" (click)="activeTab = 'mod'">
+                <span class="icon">📦</span> Yeni Mod / Program Ekle
+            </button>
+            <button [class.active]="activeTab === 'category'" (click)="activeTab = 'category'">
+                <span class="icon">📁</span> Yeni Kategori Ekle
+            </button>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- SEKME 1: YENİ KATEGORİ EKLEME FORMU        -->
+    <!-- ========================================== -->
+    <form *ngIf="activeTab === 'category'" (ngSubmit)="saveCategory()" class="admin-card">
+        <div class="card-header">
+            <h2>Yeni Kategori Oluştur</h2>
+            <span class="badge">Oyun / Grup Yapılandırması</span>
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Ana Grup</label>
+                <select [(ngModel)]="newCategory.mainGroup" name="mainGroup" class="form-control">
+                    <option value="Oyunlar">Oyunlar</option>
+                    <option value="Programlar">Programlar ve Araçlar</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Kategori / Oyun Adı</label>
+                <input type="text" [(ngModel)]="newCategory.name" (input)="onCategoryNameChange()" name="name" placeholder="Örn: Minecraft Modlar" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>URL Kısaltması (Slug)</label>
+                <input type="text" [(ngModel)]="newCategory.slug" name="slug" placeholder="Örn: minecraft-modlar" class="form-control" required>
+            </div>
+        </div>
+
+        <div class="form-grid single-col">
+            <div class="form-group">
+                <label>Galeri Sayfası Ana Başlığı (H1)</label>
+                <input type="text" [(ngModel)]="newCategory.headerTitle" name="headerTitle" placeholder="Örn: Minecraft Mod ve Eklenti Galerisi" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label>Galeri Sayfası Alt Açıklaması</label>
+                <input type="text" [(ngModel)]="newCategory.description" name="description" placeholder="Örn: Oyun deneyiminizi geliştirecek en güncel eklentiler." class="form-control">
+            </div>
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Geri Dön Buton Yazısı</label>
+                <input type="text" [(ngModel)]="newCategory.backLinkText" name="backLinkText" placeholder="← Mod Galerisine Dön" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Hakkında Başlığı Türü</label>
+                <select [(ngModel)]="newCategory.aboutTitle" name="aboutTitle" class="form-control">
+                    <option value="Mod Hakkında">Mod Hakkında</option>
+                    <option value="Program Hakkında">Program Hakkında</option>
+                    <option value="Oyun Hakkında">Oyun Hakkında</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">💾 Kategoriyi Kaydet</button>
+        </div>
+    </form>
+
+    <!-- ========================================== -->
+    <!-- SEKME 2: YENİ MOD / PROGRAM EKLEME FORMU   -->
+    <!-- ========================================== -->
+    <form *ngIf="activeTab === 'mod'" (ngSubmit)="saveMod()" class="admin-card">
+        <div class="card-header">
+            <h2>Yeni Mod veya Program Ekle</h2>
+            <span class="badge">İçerik Yönetimi</span>
+        </div>
+
+        <!-- Kategori Seçimi -->
+        <div class="form-group highlight-box">
+            <label>Hangi Kategoriye Eklenecek?</label>
+            <select [(ngModel)]="selectedCategoryId" name="selectedCategoryId" class="form-control select-highlight" required>
+                <option *ngFor="let cat of categories" [ngValue]="cat.id">
+                    [{{ cat.mainGroup }}] {{ cat.name }} ( /{{ cat.slug }} )
+                </option>
+            </select>
+        </div>
+
+        <!-- Bölüm 1: Temel Bilgiler -->
+        <div class="section-block">
+            <h3>1. Üst Başlık ve Kart Bilgileri</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Mod / Program Başlığı (H1)</label>
+                    <input type="text" [(ngModel)]="newMod.title" (input)="onModTitleChange()" name="title" placeholder="Örn: CCleaner Pro" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>URL Kısaltması (Slug)</label>
+                    <input type="text" [(ngModel)]="newMod.slug" name="modSlug" placeholder="Örn: ccleaner" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>Sürüm Rozeti (Badge)</label>
+                    <input type="text" [(ngModel)]="newMod.badgeText" name="badgeText" placeholder="Örn: Sürüm: v6.28" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Vitrin (Kapak) Görsel URL</label>
+                    <input type="text" [(ngModel)]="newMod.thumbnailUrl" name="thumbnailUrl" placeholder="https://..." class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Vitrin Kısa Açıklaması</label>
+                    <input type="text" [(ngModel)]="newMod.shortDescription" name="shortDescription" placeholder="Kart üzerinde görünecek özet cümle..." class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <!-- Bölüm 2: Galeri -->
+        <div class="section-block">
+            <h3>2. Detay Sayfası 4'lü Görsel Galerisi</h3>
+            <div class="gallery-grid">
+                <div class="gallery-row" *ngFor="let img of newMod.gallery; let i = index">
+                    <span class="gallery-index">#{{ i + 1 }}</span>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="img.imageUrl" [name]="'imgUrl' + i" placeholder="Görsel URL..." class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="img.altText" [name]="'imgAlt' + i" placeholder="Açıklama / Alt Etiketi..." class="form-control">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bölüm 3: Açıklama ve Özellikler -->
+        <div class="section-block">
+            <h3>3. Açıklama ve Özellikler</h3>
+            <div class="form-group">
+                <label>Uzun Açıklama Metni</label>
+                <textarea rows="3" [(ngModel)]="newMod.aboutDescription" name="aboutDescription" placeholder="Detaylı içerik açıklaması..." class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Özellikler Listesi</label>
+                <div class="feature-item" *ngFor="let feat of newMod.features; let i = index; trackBy: trackByIndex">
+                    <input type="text" [(ngModel)]="newMod.features[i]" [name]="'feature' + i" placeholder="Örn: Derinlemesine önbellek temizliği" class="form-control">
+                    <button type="button" class="btn-delete" (click)="removeFeature(i)">✕</button>
+                </div>
+                <button type="button" class="btn-dashed" (click)="addFeature()">+ Yeni Özellik Ekle</button>
+            </div>
+        </div>
+
+        <!-- Bölüm 4: İndirme ve Kurulum -->
+        <div class="section-block">
+            <h3>4. İndirme Bağlantısı ve Kurulum</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>İndirme Linki (URL)</label>
+                    <input type="text" [(ngModel)]="newMod.downloadUrl" name="downloadUrl" placeholder="https://..." class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>İndirme Butonu Metni</label>
+                    <input type="text" [(ngModel)]="newMod.downloadBtnText" name="downloadBtnText" placeholder="⬇️ Dosyayı İndir" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Kurulum Notu</label>
+                <textarea rows="2" [(ngModel)]="newMod.installNote" name="installNote" placeholder="Kurulum talimatları..." class="form-control"></textarea>
+            </div>
+        </div>
+
+        <!-- Bölüm 5: YouTube Video -->
+        <div class="section-block">
+            <h3>5. YouTube Tanıtım Videosu</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Video Başlığı</label>
+                    <input type="text" [(ngModel)]="newMod.videoSectionTitle" name="videoSectionTitle" placeholder="Video bölümü başlığı..." class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>YouTube Embed Linki</label>
+                    <input type="text" [(ngModel)]="newMod.youtubeEmbedUrl" name="youtubeEmbedUrl" placeholder="https://www.youtube.com/embed/..." class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Video Açıklaması</label>
+                <input type="text" [(ngModel)]="newMod.videoDescription" name="videoDescription" placeholder="Video altı açıklaması..." class="form-control">
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-primary">🚀 İçeriği Yayınla</button>
+        </div>
+    </form>
+</div>
