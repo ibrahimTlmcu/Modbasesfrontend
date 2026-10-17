@@ -12,7 +12,7 @@ import { Router } from '@angular/router'; // 1. Router eklendi
     styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
-    private apiUrl = 'http://localhost:8080/api';
+    private apiUrl = '/api';
 
     activeTab: 'mod' | 'category' = 'mod';
     categories: any[] = [];

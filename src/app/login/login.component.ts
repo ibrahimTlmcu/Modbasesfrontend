@@ -28,7 +28,7 @@ export class LoginComponent {
         this.errorMessage = '';
 
         // Spring Boot AuthController içindeki @PostMapping("/login") adresine istek atıyoruz
-        this.http.post<any>('http://localhost:8080/login', this.loginData).subscribe({
+        this.http.post<any>('/login', this.loginData).subscribe({
             next: (userDto) => {
                 // 1. AdminPanelComponent ve adminGuard'ın okuduğu 'currentUser' verisini kaydet
                 localStorage.setItem('currentUser', JSON.stringify(userDto));

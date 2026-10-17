@@ -333,29 +333,9 @@ export class AppTopbar implements OnInit, OnDestroy {
         this.username$ = this.authService.getUsername();
         this.isAdmin = this.authService['hasRole']?.('ADMIN') ?? false;
 
-        this.activeRooms$ = this.username$.pipe(
-            switchMap((username) =>
-                timer(0, 15000).pipe(
-                    switchMap(() => {
-                        if (this.isAdmin) {
-                            return this.rooms.getAll().pipe(
-                                map((list) => list.filter((r) => r.status !== 'CLOSED')),
-                                catchError(() => of([]))
-                            );
-                        } else {
-                            const me = username || 'Anon';
-                            return this.rooms.mine(me).pipe(
-                                map((list) => list.filter((r) => r.status !== 'CLOSED')),
-                                catchError(() => of([]))
-                            );
-                        }
-                    })
-                )
-            ),
-            shareReplay(1)
-        );
-
-        this.activeCount$ = this.activeRooms$.pipe(map((list) => list.length));
+   // Sohbet servisi sunucuda devrede olmadığı için geçici olarak kapatıldı.
+this.activeRooms$ = of([]);
+this.activeCount$ = of(0);
 
         this.startTypingEffect();
     }

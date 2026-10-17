@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class CommentService {
-    private apiUrl = 'http://localhost:8080/api/comments'; // Backend API adresin
+   private apiUrl = '/api/comments'; // Backend API adresin
 
     constructor(private http: HttpClient) {}
 
