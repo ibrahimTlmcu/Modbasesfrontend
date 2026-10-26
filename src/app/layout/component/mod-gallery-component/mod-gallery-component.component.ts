@@ -5,6 +5,7 @@ import { Category, ModItem, ModService } from '../../../services/mod.service';
 import { TranslatePipe } from '../../../pipes/translate.pipe';
 import { LanguageService } from '../../../services/language.service';
 import { SeoService } from '../../../services/seo.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-mod-gallery',
@@ -129,7 +130,9 @@ export class ModGalleryComponent implements OnInit {
         private modService: ModService,
         private cdr: ChangeDetectorRef,
         private languageService: LanguageService,
-        private seoService: SeoService
+        private seoService: SeoService,
+
+        private http: HttpClient
     ) {}
 
     ngOnInit(): void {
@@ -211,5 +214,18 @@ export class ModGalleryComponent implements OnInit {
         const description = category.description?.trim() || fallbackDescription[lang] || fallbackDescription['en'];
 
         this.seoService.updateSeo(title, description);
+
+        this.http.get<Record<string, string>>(`/api/seo/category/${category.id}/alternates`).subscribe({
+            next: (alternates) => {
+                this.seoService.updateSeo(title, description, {
+                    tr: new URL(alternates['tr']).pathname,
+                    en: new URL(alternates['en']).pathname,
+                    de: new URL(alternates['de']).pathname
+                });
+            },
+            error: (err) => {
+                console.error('Kategori hreflang yüklenemedi:', err);
+            }
+        });
     }
 }

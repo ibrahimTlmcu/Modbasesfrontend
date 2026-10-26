@@ -10,6 +10,7 @@ import { LanguageService } from '../../../services/language.service';
 import { LocalizedString } from '@angular/compiler';
 import { SeoService } from '../../../services/seo.service';
 import { Meta } from '@angular/platform-browser';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -39,8 +40,11 @@ export class ModDetailComponent implements OnInit {
         private commentService: CommentService,
         private sanitizer: DomSanitizer,
         private languageService: LanguageService,
+
+
         private seoService: SeoService,
-        private meta: Meta
+        private meta: Meta,
+        private http: HttpClient
     ) {}
 
     ngOnInit(): void {
@@ -91,7 +95,18 @@ export class ModDetailComponent implements OnInit {
 
         const description = mod.shortDescription?.trim() || mod.aboutDescription?.trim() || mod.title;
 
-        this.seoService.updateSeo(title, description);
+        this.http.get<Record<string, string>>(`/api/seo/mod/${mod.id}/alternates`).subscribe({
+            next: (alternates) => {
+                this.seoService.updateSeo(title, description, {
+                    tr: new URL(alternates['tr']).pathname,
+                    en: new URL(alternates['en']).pathname,
+                    de: new URL(alternates['de']).pathname
+                });
+            },
+            error: (err) => {
+                console.error('Mod hreflang yüklenemedi:', err);
+            }
+        });
 
         // Mod görseli varsa Open Graph görseli
         if (mod.thumbnailUrl) {
