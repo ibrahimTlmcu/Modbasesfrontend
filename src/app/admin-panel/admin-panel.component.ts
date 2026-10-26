@@ -58,16 +58,15 @@ export class AdminPanelComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-
-
         this.loadCategories();
     }
     // Kategorileri Backend'den çek
     loadCategories(): void {
-        this.http.get<any[]>(`${this.apiUrl}/categories`).subscribe({
+        this.http.get<any[]>(`${this.apiUrl}/categories?lang=tr`).subscribe({
             next: (data) => {
                 this.categories = data;
-                if (this.categories.length > 0 && !this.selectedCategoryId) {
+
+                if (this.categories.length > 0 && !this.categories.some((c) => c.id === this.selectedCategoryId)) {
                     this.selectedCategoryId = this.categories[0].id;
                 }
             },
@@ -127,17 +126,27 @@ export class AdminPanelComponent implements OnInit {
     trackByIndex(index: number): number {
         return index;
     }
-
-    // KATEGORİ KAYDET (POST)
     saveCategory(): void {
-        this.http.post(`${this.apiUrl}/categories`, this.newCategory).subscribe({
-            next: (res: any) => {
-                alert('Kategori başarıyla eklendi!');
+        const payload = {
+            translations: [
+                {
+                    languageCode: 'tr',
+                    ...this.newCategory
+                }
+            ]
+        };
+
+        this.http.post<any>(`${this.apiUrl}/categories?lang=tr`, payload).subscribe({
+            next: (res) => {
+                alert('Kategori 3 dilde başarıyla eklendi!');
                 this.loadCategories();
                 this.selectedCategoryId = res.id;
-                this.activeTab = 'mod'; // Kategori eklenince direkt mod ekleme sekmesine geç
+                this.activeTab = 'mod';
             },
-            error: (err) => alert('Kategori eklenirken hata oluştu!')
+            error: (err) => {
+                console.error('Kategori ekleme hatası:', err);
+                alert(err.error?.message || 'Kategori eklenirken hata oluştu!');
+            }
         });
     }
 
@@ -148,18 +157,28 @@ export class AdminPanelComponent implements OnInit {
             return;
         }
 
-        // Boş bırakılan özellik maddelerini temizle
-        const cleanedMod = {
-            ...this.newMod,
-            features: this.newMod.features.filter((f) => f.trim() !== '')
+        const payload = {
+            categoryId: this.selectedCategoryId,
+            thumbnailUrl: this.newMod.thumbnailUrl,
+            translations: [
+                {
+                    languageCode: 'tr',
+                    ...this.newMod,
+                    features: this.newMod.features.filter((f) => f.trim() !== ''),
+                    gallery: this.newMod.gallery.filter((img) => img.imageUrl.trim() !== '')
+                }
+            ]
         };
 
-        this.http.post(`${this.apiUrl}/categories/${this.selectedCategoryId}/mods`, cleanedMod).subscribe({
-            next: (res) => {
-                alert('Mod / Program başarıyla yayınlandı!');
+        this.http.post(`${this.apiUrl}/categories/${this.selectedCategoryId}/mods?lang=tr`, payload).subscribe({
+            next: () => {
+                alert('Mod 3 dilde başarıyla yayınlandı!');
                 this.resetModForm();
             },
-            error: (err) => alert('Kayıt sırasında hata oluştu!')
+            error: (err) => {
+                console.error('Mod ekleme hatası:', err);
+                alert(err.error?.message || 'Mod kaydedilirken hata oluştu!');
+            }
         });
     }
 
