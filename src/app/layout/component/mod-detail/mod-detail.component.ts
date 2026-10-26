@@ -8,6 +8,8 @@ import { CommentService } from '../../../services/comment.service';
 import { TranslatePipe } from '../../../pipes/translate.pipe';
 import { LanguageService } from '../../../services/language.service';
 import { LocalizedString } from '@angular/compiler';
+import { SeoService } from '../../../services/seo.service';
+import { Meta } from '@angular/platform-browser';
 
 
 @Component({
@@ -36,7 +38,9 @@ export class ModDetailComponent implements OnInit {
         private modService: ModService,
         private commentService: CommentService,
         private sanitizer: DomSanitizer,
-        private languageService: LanguageService
+        private languageService: LanguageService,
+        private seoService: SeoService,
+        private meta: Meta
     ) {}
 
     ngOnInit(): void {
@@ -46,24 +50,66 @@ export class ModDetailComponent implements OnInit {
 
             if (catSlug && modSlug) {
                 this.categorySlug = catSlug;
+                this.mod = undefined;
+                this.safeYoutubeUrl = undefined;
 
-                // Mod detayını getir
-                this.modService.getModDetail(catSlug, modSlug).subscribe((data: any) => {
-                    this.mod = data;
-                    if (data.youtubeEmbedUrl) {
-                        this.safeYoutubeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(data.youtubeEmbedUrl);
-                    }
+                this.modService.getModDetail(catSlug, modSlug).subscribe({
+                    next: (data: ModItem) => {
+                        this.mod = data;
 
-                    // Mod verisi geldikten sonra o moda ait yorumları veritabanından çekiyoruz
-                    if (data && data.id) {
-                        this.loadComments(data.id);
+                        // SEO: Mod bilgilerine göre otomatik güncelle
+                        this.updateModSeo(data);
+
+                        if (data.youtubeEmbedUrl) {
+                            this.safeYoutubeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(data.youtubeEmbedUrl);
+                        }
+
+                        if (data.id) {
+                            this.loadComments(data.id);
+                        }
+                    },
+                    error: (err) => {
+                        console.error('Mod detayı yüklenemedi:', err);
                     }
                 });
 
-                // Aynı kategorideki diğer modları getir ve sağ sidebar'a doldur
                 this.loadCategoryMods(catSlug, modSlug);
             }
         });
+    }
+
+    private updateModSeo(mod: ModItem): void {
+        const lang = this.languageService.currentLanguage;
+
+        const suffix: Record<string, string> = {
+            tr: 'İndir',
+            en: 'Download',
+            de: 'Herunterladen'
+        };
+
+        const title = `${mod.title} ${suffix[lang] || 'Download'}`;
+
+        const description = mod.shortDescription?.trim() || mod.aboutDescription?.trim() || mod.title;
+
+        this.seoService.updateSeo(title, description);
+
+        // Mod görseli varsa Open Graph görseli
+        if (mod.thumbnailUrl) {
+            const imageUrl = new URL(mod.thumbnailUrl, 'https://www.modbases.com').href;
+
+            this.meta.updateTag({
+                property: 'og:image',
+                content: imageUrl
+            });
+
+            this.meta.updateTag({
+                name: 'twitter:image',
+                content: imageUrl
+            });
+        } else {
+            this.meta.removeTag("property='og:image'");
+            this.meta.removeTag("name='twitter:image'");
+        }
     }
 
     localizedRoute(...segments: string[]): string[] {

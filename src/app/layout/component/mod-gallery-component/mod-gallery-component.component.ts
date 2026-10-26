@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Category, ModItem, ModService } from '../../../services/mod.service';
 import { TranslatePipe } from '../../../pipes/translate.pipe';
 import { LanguageService } from '../../../services/language.service';
+import { SeoService } from '../../../services/seo.service';
 
 @Component({
     selector: 'app-mod-gallery',
@@ -29,8 +30,7 @@ import { LanguageService } from '../../../services/language.service';
 
                 <!-- Mod Listesi Boşsa Uyarı Göster -->
                 <div *ngIf="mods.length === 0" style="text-align: center; color: #777; padding: 2rem;">
-
-                    <p>{{'gallery.nomods' | translate}}</p>
+                    <p>{{ 'gallery.nomods' | translate }}</p>
                 </div>
 
                 <!-- Mod Kartları -->
@@ -128,50 +128,58 @@ export class ModGalleryComponent implements OnInit {
         private route: ActivatedRoute,
         private modService: ModService,
         private cdr: ChangeDetectorRef,
-        private languageService: LanguageService
+        private languageService: LanguageService,
+        private seoService: SeoService
     ) {}
 
     ngOnInit(): void {
         this.route.paramMap.subscribe((params) => {
-            // app.routes.ts içinde parametre adı 'categorySlug', 'slug' veya 'id' olabilir, hepsini kontrol eder:
             const slug = params.get('categorySlug') || params.get('slug') || params.get('id');
-            console.log('Route üzerinden yakalanan kategori parametresi:', slug);
 
             if (slug) {
                 this.loadCategoryData(slug);
             } else {
-                // Eğer URL /ets2 gibi sabit bir route olarak tanımlandıysa doğrudan URL yolundan al:
                 const currentPath = this.route.snapshot.url[0]?.path;
-                console.log('Parametre bulunamadı, URL yolu kullanılıyor:', currentPath);
+
                 if (currentPath) {
                     this.loadCategoryData(currentPath);
                 }
             }
         });
     }
+
     localizedLink(...segments: string[]): string[] {
         return this.languageService.localizedRoute(...segments);
     }
 
-    loadCategoryData(slug: string) {
+    loadCategoryData(slug: string): void {
+        // Önce eski kategori bilgilerini temizle
         this.errorMessage = '';
+        this.category = null;
+        this.mods = [];
 
+        // Kategori bilgilerini getir
         this.modService.getCategoryBySlug(slug).subscribe({
-            next: (cat) => {
-                console.log('Backend Kategori Yanıtı:', cat);
+            next: (cat: Category) => {
                 this.category = cat;
+
+                // Kategoriye özel SEO etiketlerini güncelle
+                this.updateCategorySeo(cat);
+
                 this.cdr.detectChanges();
             },
             error: (err) => {
                 console.error('Kategori çekilirken hata oluştu:', err);
+
                 this.errorMessage = `"${slug}" ${this.languageService.translate('gallery.categoryNotFound')} (HTTP ${err.status}).`;
+
                 this.cdr.detectChanges();
             }
         });
 
+        // Kategoriye ait modları getir
         this.modService.getModsByCategory(slug).subscribe({
-            next: (mods) => {
-                console.log('Backend Mod Listesi Yanıtı:', mods);
+            next: (mods: ModItem[]) => {
                 this.mods = mods;
                 this.cdr.detectChanges();
             },
@@ -180,5 +188,28 @@ export class ModGalleryComponent implements OnInit {
                 this.cdr.detectChanges();
             }
         });
+    }
+
+    // KATEGORİ SEO
+    private updateCategorySeo(category: Category): void {
+        const lang = this.languageService.currentLanguage;
+
+        const suffix: Record<string, string> = {
+            tr: 'Modları ve Yamaları İndir',
+            en: 'Mods & Downloads',
+            de: 'Mods herunterladen'
+        };
+
+        const fallbackDescription: Record<string, string> = {
+            tr: `${category.name} için oyun modlarını, yamaları ve eklentileri keşfedin. İndirme bağlantılarını ve kurulum bilgilerini ModBases üzerinden inceleyin.`,
+            en: `Discover mods, patches and add-ons for ${category.name}. Explore downloads and installation information on ModBases.`,
+            de: `Entdecke Mods, Patches und Erweiterungen für ${category.name}. Finde Downloads und Installationsinformationen auf ModBases.`
+        };
+
+        const title = `${category.name} ${suffix[lang] || suffix['en']}`;
+
+        const description = category.description?.trim() || fallbackDescription[lang] || fallbackDescription['en'];
+
+        this.seoService.updateSeo(title, description);
     }
 }
