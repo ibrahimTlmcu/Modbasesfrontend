@@ -7,23 +7,24 @@ import { LayoutService } from '../service/layout.service';
 import { AuthService } from '../../services/auth.service';
 import { RoomService } from '../../services/room.service';
 import { Room } from '../../models/Room';
+import { TranslatePipe } from '../../pipes/translate.pipe';
+import { LanguageService } from '../../services/language.service';
 import { Observable, timer, of } from 'rxjs';
 import { map, shareReplay, switchMap, catchError } from 'rxjs/operators';
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
-    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator],
+    imports: [RouterModule, CommonModule, StyleClassModule, AppConfigurator, TranslatePipe],
     encapsulation: ViewEncapsulation.None,
     template: `
-
         <div class="layout-topbar modern-red-topbar">
             <div class="layout-topbar-logo-container">
                 <button class="layout-menu-button layout-topbar-action glass-btn" (click)="layoutService.onMenuToggle()">
                     <i class="pi pi-bars"></i>
                 </button>
 
-                <a class="layout-topbar-logo flex items-center" routerLink="/">
+                <a class="layout-topbar-logo flex items-center" [routerLink]="localizedRoute('dashboard')">
                     <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
                         <path
                             fill-rule="evenodd"
@@ -43,6 +44,14 @@ import { map, shareReplay, switchMap, catchError } from 'rxjs/operators';
             </div>
 
             <div class="layout-topbar-actions">
+                <!-- Dil seçici -->
+                <div class="language-switcher" aria-label="Dil seçimi">
+                    <a [routerLink]="languageRoute('tr')" [class.active]="currentLanguage === 'tr'">TR</a>
+
+                    <a [routerLink]="languageRoute('en')" [class.active]="currentLanguage === 'en'">EN</a>
+
+                    <a [routerLink]="languageRoute('de')" [class.active]="currentLanguage === 'de'">DE</a>
+                </div>
                 <div class="layout-config-menu">
                     <button type="button" class="layout-topbar-action glass-btn" (click)="toggleDarkMode()">
                         <i [ngClass]="{ 'pi ': true, 'pi-moon': layoutService.isDarkTheme(), 'pi-sun': !layoutService.isDarkTheme() }"></i>
@@ -74,8 +83,8 @@ import { map, shareReplay, switchMap, catchError } from 'rxjs/operators';
                         leaveToClass="hidden"
                         leaveActiveClass="animate-fadeout"
                         [hideOnOutsideClick]="true"
-                        aria-label="Aktif Odalar"
-                        title="Aktif Odalar"
+                        [attr.aria-label]="'topbar.activeRooms' | translate"
+                        [title]="'topbar.activeRooms' | translate"
                     >
                         <i class="pi pi-bell"></i>
                         <span class="notif-badge" *ngIf="activeCount$ | async as c" [class.hidden]="!c">{{ c }}</span>
@@ -136,10 +145,11 @@ import { map, shareReplay, switchMap, catchError } from 'rxjs/operators';
                         <!-- KULLANICI GİRİŞ YAPMIŞSA GÖSTERİLECEK ALAN -->
                         <ng-container *ngIf="username$ | async as username; else guestActions">
                             <div class="text-white text-sm mr-3 text-right">
-                                <span class="opacity-80 text-xs">Hoş geldin,</span><br />
+                                <span class="opacity-80 text-xs">{{ 'topbar.welcome' | translate }}</span
+                                ><br />
                                 <strong class="text-base tracking-wide">{{ username }}</strong>
                             </div>
-                            <button type="button" class="layout-topbar-action glass-btn" title="Çıkış Yap" (click)="logout()">
+                            <button type="button" class="layout-topbar-action glass-btn" [title]="'topbar.logout' | translate" (click)="logout()">
                                 <i class="pi pi-sign-out"></i>
                             </button>
                         </ng-container>
@@ -149,11 +159,11 @@ import { map, shareReplay, switchMap, catchError } from 'rxjs/operators';
                             <div class="flex items-center gap-2 ml-2">
                                 <a routerLink="/auth/login" class="topbar-auth-btn glass-btn">
                                     <i class="pi pi-sign-in text-sm"></i>
-                                    <span>Giriş Yap</span>
+                                    <span>{{ 'topbar.login' | translate }}</span>
                                 </a>
                                 <a routerLink="/auth/register" class="topbar-auth-btn register-highlight-btn">
                                     <i class="pi pi-user-plus text-sm"></i>
-                                    <span>Kayıt Ol</span>
+                                    <span>{{ 'topbar.register' | translate }}</span>
                                 </a>
                             </div>
                         </ng-template>
@@ -235,6 +245,41 @@ import { map, shareReplay, switchMap, catchError } from 'rxjs/operators';
             }
 
             /* Giriş Yap / Kayıt Ol Buton Stilleri */
+            /* Dil seçici */
+            .language-switcher {
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                padding: 4px;
+                margin-right: 8px;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.25);
+            }
+
+            .language-switcher a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 34px;
+                padding: 7px 9px;
+                border-radius: 8px;
+                color: #ffffff;
+                text-decoration: none;
+                font-size: 12px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: background 0.2s ease;
+            }
+
+            .language-switcher a:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .language-switcher a.active {
+                background: #ffffff;
+                color: #ff416c;
+            }
             .topbar-auth-btn {
                 display: inline-flex;
                 align-items: center;
@@ -311,13 +356,57 @@ import { map, shareReplay, switchMap, catchError } from 'rxjs/operators';
     ]
 })
 export class AppTopbar implements OnInit, OnDestroy {
+    // Dil değiştirirken mevcut sayfanın yolunu korur.
+    languageRoute(language: 'tr' | 'en' | 'de'): string[] {
+        const urlTree = this.router.parseUrl(this.router.url);
+
+        const segments = urlTree.root.children['primary']?.segments.map((s) => s.path) ?? [];
+
+        // Mevcut URL'de dil öneki varsa kaldır.
+        if (segments[0] === 'en' || segments[0] === 'de') {
+            segments.shift();
+        }
+
+        // Kök dizin Türkçe kalır.
+        if (language === 'tr') {
+            return ['/', ...segments];
+        }
+
+        return [`/${language}`, ...segments];
+    }
+
+    // Logo gibi bağlantılarda mevcut dili korur.
+    localizedRoute(...segments: string[]): string[] {
+        const language = this.currentLanguage;
+
+        if (language === 'tr') {
+            return ['/', ...segments];
+        }
+
+        return [`/${language}`, ...segments];
+    }
+    get currentLanguage(): 'tr' | 'en' | 'de' {
+        const path = this.router.url.split(/[?#]/)[0];
+
+        if (path === '/en' || path.startsWith('/en/')) {
+            return 'en';
+        }
+
+        if (path === '/de' || path.startsWith('/de/')) {
+            return 'de';
+        }
+
+        return 'tr';
+    }
     username$!: Observable<string | null>;
     activeRooms$!: Observable<Room[]>;
     activeCount$!: Observable<number>;
     private isAdmin = false;
 
     displayedText: string = '';
-    private fullText: string = 'Tek tıkla indir';
+    private get fullText(): string {
+        return this.languageService.translate('topbar.tagline');
+    }
     private charIndex: number = 0;
     private isDeleting: boolean = false;
     private typingInterval: any;
@@ -326,16 +415,18 @@ export class AppTopbar implements OnInit, OnDestroy {
         public layoutService: LayoutService,
         private authService: AuthService,
         private rooms: RoomService,
-        private router: Router
+        private router: Router,
+
+        private languageService: LanguageService
     ) {}
 
     ngOnInit(): void {
         this.username$ = this.authService.getUsername();
         this.isAdmin = this.authService['hasRole']?.('ADMIN') ?? false;
 
-   // Sohbet servisi sunucuda devrede olmadığı için geçici olarak kapatıldı.
-this.activeRooms$ = of([]);
-this.activeCount$ = of(0);
+        // Sohbet servisi sunucuda devrede olmadığı için geçici olarak kapatıldı.
+        this.activeRooms$ = of([]);
+        this.activeCount$ = of(0);
 
         this.startTypingEffect();
     }

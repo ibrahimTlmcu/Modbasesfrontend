@@ -1,7 +1,7 @@
 <div class="mod-detail-container" *ngIf="mod">
     <!-- Geri Dön Butonu -->
-    <a [routerLink]="['/', mod.category.slug]" class="back-link">
-        {{ mod.category.backLinkText || '← Mod Galerisine Dön' }}
+    <a [routerLink]="localizedRoute(mod.category.slug)" class="back-link">
+        {{ 'detail.backToGallery' | translate }}
     </a>
 
     <div class="mod-header">
@@ -21,11 +21,11 @@
 
         <!-- Sol Taraf: Mod Bilgileri -->
         <div class="info-text">
-            <h3>{{ mod.category.aboutTitle || 'Mod Hakkında' }}</h3>
+            <h3>{{ 'detail.about' | translate }}</h3>
             <p>{{ mod.aboutDescription }}</p>
 
             <ng-container *ngIf="mod.features && mod.features.length > 0">
-                <h3>Özellikler</h3>
+                <h3>{{ 'detail.features' | translate }}</h3>
                 <ul>
                     <li *ngFor="let feature of mod.features">{{ feature }}</li>
                 </ul>
@@ -35,7 +35,7 @@
         <!-- Sağ Taraf: İndirme Kutusu -->
         <div class="download-section">
             <a [href]="mod.downloadUrl" target="_blank" class="btn-download">
-                {{ mod.downloadBtnText || '⬇️ Modu İndir (.zip)' }}
+                {{ 'detail.download' |   translate }} ⬇️
             </a>
             <p class="kurulum-notu" [innerHTML]="mod.installNote"></p>
         </div>
@@ -48,7 +48,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="#FF0000">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
             </svg>
-            {{ mod.videoSectionTitle || 'Mod Oynanış ve Tanıtım Videosu' }}
+            {{ 'detail.videoTitle' | translate }}
         </h3>
         <p class="video-desc">{{ mod.videoDescription }}</p>
 
@@ -75,49 +75,49 @@
     <!-- SOL TARAF: YORUM YAPMA VE LİSTELEME -->
     <div class="left-comments-column">
         <div class="comment-section-wrapper">
-            <h3>Yorum Yap</h3>
+            {{ 'detail.writeComment' | translate }}
 
             <div class="comment-form-box">
                 <!-- Textarea ve Yanıt Gönder Butonu -->
                 <div class="textarea-container">
-                    <textarea [(ngModel)]="newCommentText" placeholder="Düşüncelerini paylaş..." rows="4"></textarea>
+                    <textarea [(ngModel)]="newCommentText" [placeholder]="'detail.shareThoughts' | translate" rows="4"></textarea>
 
                     <div class="textarea-footer">
                         <button type="button" class="btn-reply-action" (click)="submitComment()">
-                            Yanıt Gönder <i class="pi pi-comment"></i>
+                            {{ 'detail.reply' | translate }} <i class="pi pi-comment"></i>
                         </button>
                     </div>
                 </div>
 
                 <!-- Zengin Metin Araç Çubuğu (Toolbar) -->
                 <div class="editor-toolbar">
-                    <button type="button" (click)="formatText('bold')" title="Kalın"><b>B</b></button>
-                    <button type="button" (click)="formatText('italic')" title="İtalik"><i>I</i></button>
-                    <button type="button" (click)="formatText('underline')" title="Altı Çizgili"><u>U</u></button>
-                    <button type="button" (click)="formatText('strike')" title="Üstü Çizgili"><s>S</s></button>
-                    <button type="button" (click)="formatText('code')" title="Kod"><code>&lt;/&gt;</code></button>
-                    <button type="button" (click)="formatText('link')" title="Bağlantı"><i class="pi pi-link"></i></button>
-                    <button type="button" class="spoiler-btn" (click)="formatText('spoiler')">SPOILER</button>
+                    <button type="button" (click)="formatText('bold')"[title]="'detail.bold' | translate"><b>B</b></button>
+                    <button type="button" (click)="formatText('italic')"[title]="'detail.italic' | translate"><i>I</i></button>
+                    <button type="button" (click)="formatText('underline')" [title]="'detail.underline' | translate"><u>U</u></button>
+                    <button type="button" (click)="formatText('strike')" [title]="'detail.strike' | translate"><s>S</s></button>
+
+
                 </div>
 
                 <!-- Kullanıcı Bilgi Alanı -->
                 <div class="user-info-inputs">
-                    <p class="info-label">Yorum yapmak için e-postanızı girin.</p>
+                    <p class="info-label">{{'detail.enterEmail'| translate}}</p>
 
                     <div class="input-row">
-                        <input type="email" [(ngModel)]="userEmail" placeholder="E-posta adresiniz">
+                        <input type="email" [(ngModel)]="userEmail" [placeholder]="'detail.email'|translate  ">
                     </div>
 
                     <div class="input-row">
-                        <input type="text" [(ngModel)]="userName" placeholder="Kullanıcı adınız veya adınız">
+                        <input type="text" [(ngModel)]="userName"[placeholder]="'detail.username' | translate">
+                        <input type="text" [(ngModel)]="userName"[placeholder]="'detail.username' | translate">
                     </div>
 
-                    <p class="privacy-note">Size herhangi bir pazarlama veya talep e-postası göndermeyeceğiz.</p>
+                    <p class="privacy-note">{{ 'detail.privacy' | translate }}.</p>
                 </div>
 
                 <!-- Ana Gönder Butonu -->
                 <div class="form-submit-row">
-                    <button type="button" class="btn-submit-main" (click)="submitComment()">Gönder</button>
+                    <button type="button" class="btn-submit-main" (click)="submitComment()">{{ 'detail.submit' | translate }}</button>
                 </div>
             </div>
 
@@ -132,8 +132,7 @@
                 </div>
 
                 <div class="no-comments" *ngIf="comments.length === 0">
-                    Henüz yorum yapılmamış. İlk yorumu sen yap!
-                </div>
+                    {{ 'detail.noComments' | translate }}                </div>
             </div>
         </div>
     </div>
@@ -141,7 +140,7 @@
     <!-- SAĞ TARAF: EN SON EKLENEN MODLAR WİDGET'I (DİNAMİK) -->
     <div class="right-sidebar-column">
         <div class="sidebar-widget">
-            <h3>🔥 Son Eklenen Modlar</h3>
+            <h3>🔥 {{ 'detail.latestMods' | translate }}</h3>
 
             <div class="latest-mods-list">
                 <!-- Dinamik olarak dönen mod kartları (ModItem model yapısına uyarlandı) -->
@@ -155,7 +154,7 @@
 
                 <!-- Eğer henüz mod gelmediyse veya liste boşsa -->
                 <div class="no-mods" *ngIf="latestMods.length === 0">
-                    <span style="font-size: 12px; color: #94a3b8;">Yükleniyor...</span>
+                    {{ 'common.loading' | translate }}
                 </div>
             </div>
         </div>

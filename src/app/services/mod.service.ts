@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
+import { Observable } from 'rxjs';
+import { LanguageService } from './language.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 export interface Category {
     id: number;
     mainGroup: string;
@@ -42,23 +43,29 @@ export interface ModItem {
     providedIn: 'root'
 })
 export class ModService {
-   private apiUrl = '/api';
+    private apiUrl = '/api';
+    constructor(
+        private http: HttpClient,
+        private languageService: LanguageService
+    ) {}
 
-    constructor(private http: HttpClient) {}
+    private getLangParams(): HttpParams {
+        return new HttpParams().set('lang', this.languageService.currentLanguage);
+    }
 
     getCategories(): Observable<Category[]> {
-        return this.http.get<Category[]>(`${this.apiUrl}/categories`);
+        return this.http.get<Category[]>(`${this.apiUrl}/categories`, { params: this.getLangParams() });
     }
 
     getCategoryBySlug(slug: string): Observable<Category> {
-        return this.http.get<Category>(`${this.apiUrl}/categories/${slug}`);
+        return this.http.get<Category>(`${this.apiUrl}/categories/${slug}`, { params: this.getLangParams() });
     }
 
     getModsByCategory(categorySlug: string): Observable<ModItem[]> {
-        return this.http.get<ModItem[]>(`${this.apiUrl}/categories/${categorySlug}/mods`);
+        return this.http.get<ModItem[]>(`${this.apiUrl}/categories/${categorySlug}/mods`, { params: this.getLangParams() });
     }
 
     getModDetail(categorySlug: string, modSlug: string): Observable<ModItem> {
-        return this.http.get<ModItem>(`${this.apiUrl}/mods/${categorySlug}/${modSlug}`);
+        return this.http.get<ModItem>(`${this.apiUrl}/mods/${categorySlug}/${modSlug}`, { params: this.getLangParams() });
     }
 }

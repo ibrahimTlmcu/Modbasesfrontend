@@ -2,16 +2,18 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Category, ModItem, ModService } from '../../../services/mod.service';
+import { TranslatePipe } from '../../../pipes/translate.pipe';
+import { LanguageService } from '../../../services/language.service';
 
 @Component({
     selector: 'app-mod-gallery',
     standalone: true,
-    imports: [CommonModule, RouterModule],
+    imports: [CommonModule, RouterModule, TranslatePipe],
     template: `
         <div class="mod-container">
             <!-- Kategori Yükleniyor veya Bulunamadı Durumu -->
             <div *ngIf="!category && !errorMessage" style="text-align: center; padding: 2rem;">
-                <p>Kategori verileri yükleniyor...</p>
+                <p>{{ 'gallery.loadingCategory' | translate }}</p>
             </div>
 
             <div *ngIf="errorMessage" style="text-align: center; padding: 2rem; color: #d9534f;">
@@ -27,7 +29,8 @@ import { Category, ModItem, ModService } from '../../../services/mod.service';
 
                 <!-- Mod Listesi Boşsa Uyarı Göster -->
                 <div *ngIf="mods.length === 0" style="text-align: center; color: #777; padding: 2rem;">
-                    <p>Bu kategoride ({{ category.slug }}) henüz eklenmiş bir mod bulunmuyor.</p>
+
+                    <p>{{'gallery.nomods' | translate}}</p>
                 </div>
 
                 <!-- Mod Kartları -->
@@ -37,7 +40,9 @@ import { Category, ModItem, ModService } from '../../../services/mod.service';
                         <div class="mod-content">
                             <h3>{{ mod.title }}</h3>
                             <p>{{ mod.shortDescription }}</p>
-                            <button class="btn-indir" [routerLink]="['/', category.slug, mod.slug]">Modu İncele</button>
+                            <button class="btn-indir" [routerLink]="localizedLink(category.slug, mod.slug)">
+                                {{ 'gallery.viewMod' | translate }}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +127,8 @@ export class ModGalleryComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private modService: ModService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
+        private languageService: LanguageService
     ) {}
 
     ngOnInit(): void {
@@ -143,6 +149,9 @@ export class ModGalleryComponent implements OnInit {
             }
         });
     }
+    localizedLink(...segments: string[]): string[] {
+        return this.languageService.localizedRoute(...segments);
+    }
 
     loadCategoryData(slug: string) {
         this.errorMessage = '';
@@ -155,7 +164,7 @@ export class ModGalleryComponent implements OnInit {
             },
             error: (err) => {
                 console.error('Kategori çekilirken hata oluştu:', err);
-                this.errorMessage = `"${slug}" kategorisi bulunamadı (HTTP ${err.status}).`;
+                this.errorMessage = `"${slug}" ${this.languageService.translate('gallery.categoryNotFound')} (HTTP ${err.status}).`;
                 this.cdr.detectChanges();
             }
         });

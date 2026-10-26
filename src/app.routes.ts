@@ -30,6 +30,9 @@ import { KullanimKosullariComponent } from './app/pages/kullanim-kosullari/kulla
 function parseJwt(token: string): any {
     try {
         const base64Url = token.split('.')[1];
+        // İngilizce ve Almanca sürümlerin herkese açık sayfaları.
+        // Mevcut Türkçe rotalarına dokunmaz.
+
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(
             atob(base64)
@@ -81,7 +84,32 @@ export const adminGuard: CanActivateFn = () => {
     router.navigate(['/dashboard']);
     return false;
 };
+const localizedPublicChildren = (): Routes => [
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+    { path: 'dashboard', component: Dashboard },
+    { path: 'landing', component: Landing },
+
+    { path: 'gizlilik-politikasi', component: GizlilikPolitikasiComponent },
+    { path: 'kullanim-kosullari', component: KullanimKosullariComponent },
+    { path: 'iletisim', component: IletisimComponent },
+
+    // Önce iki parçalı mod URL'si, ardından kategori URL'si
+    { path: ':categorySlug/:modSlug', component: ModDetailComponent },
+    { path: ':categorySlug', component: ModGalleryComponent },
+
+    { path: '**', redirectTo: 'dashboard' }
+];
 export const appRoutes: Routes = [
+    {
+        path: 'en',
+        component: AppLayout,
+        children: localizedPublicChildren()
+    },
+    {
+        path: 'de',
+        component: AppLayout,
+        children: localizedPublicChildren()
+    },
     // 1. Auth yolları (Kullanıcı sadece istediğinde /auth/login adresine gider)
     { path: 'auth', loadChildren: () => import('./app/pages/auth/auth.routes').then((m) => m.default) },
 
@@ -120,9 +148,9 @@ export const appRoutes: Routes = [
             { path: 'sss-getir', component: SssGetirComponent },
             { path: 'canli-talepler', component: MyRoomsComponent },
 
-    { path: 'gizlilik-politikasi', component: GizlilikPolitikasiComponent },
-    { path: 'kullanim-kosullari', component: KullanimKosullariComponent },
-    { path: 'iletisim', component: IletisimComponent },
+            { path: 'gizlilik-politikasi', component: GizlilikPolitikasiComponent },
+            { path: 'kullanim-kosullari', component: KullanimKosullariComponent },
+            { path: 'iletisim', component: IletisimComponent },
             // DİNAMİK KATEGORİ VE MOD YOLLARI (Her zaman children listesinin EN ALTINDA olmalı)
             { path: ':categorySlug', component: ModGalleryComponent },
             { path: ':categorySlug/:modSlug', component: ModDetailComponent }

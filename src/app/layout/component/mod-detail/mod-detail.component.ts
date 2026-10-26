@@ -5,11 +5,15 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ModService, ModItem } from '../../../services/mod.service';
 import { CommentService } from '../../../services/comment.service';
+import { TranslatePipe } from '../../../pipes/translate.pipe';
+import { LanguageService } from '../../../services/language.service';
+import { LocalizedString } from '@angular/compiler';
+
 
 @Component({
     selector: 'app-mod-detail',
     standalone: true,
-    imports: [CommonModule, RouterModule, FormsModule],
+    imports: [CommonModule, RouterModule, FormsModule, TranslatePipe],
     templateUrl: './mod-detail.component.html',
     styleUrls: ['./mod-detail.component.scss']
 })
@@ -31,7 +35,8 @@ export class ModDetailComponent implements OnInit {
         private route: ActivatedRoute,
         private modService: ModService,
         private commentService: CommentService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private languageService: LanguageService
     ) {}
 
     ngOnInit(): void {
@@ -59,6 +64,10 @@ export class ModDetailComponent implements OnInit {
                 this.loadCategoryMods(catSlug, modSlug);
             }
         });
+    }
+
+    localizedRoute(...segments: string[]): string[] {
+        return this.languageService.localizedRoute(...segments);
     }
 
     // Yorumları backend'den getir
@@ -126,7 +135,7 @@ export class ModDetailComponent implements OnInit {
     // Yeni yorumu veritabanına kaydet
     submitComment() {
         if (!this.newCommentText.trim() || !this.userName.trim()) {
-            alert('Lütfen kullanıcı adı ve yorum alanını doldurun.');
+            alert(this.languageService.translate('detail.commentRequired'));
             return;
         }
 
@@ -144,7 +153,7 @@ export class ModDetailComponent implements OnInit {
             },
             error: (err) => {
                 console.error('Yorum gönderilemedi:', err);
-                alert('Yorum kaydedilirken bir hata oluştu.');
+                alert(this.languageService.translate('detail.commentSaveError'));
             }
         });
     }
