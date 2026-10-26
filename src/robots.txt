@@ -1,8 +1,10 @@
 User-agent: *
 Allow: /
-Disallow: /admin/
-Disallow: /api/
-Disallow: /panel/
-Disallow: /search?
 
-Sitemap: https://modebases.com/sitemap.xml
+Disallow: /api/
+Disallow: /admin/
+Disallow: /panel/
+Disallow: /auth/
+Disallow: /kullanici-profil
+
+Sitemap: https://www.modbases.com/sitemap.xml

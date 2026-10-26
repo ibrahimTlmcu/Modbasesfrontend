@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 ">
-    <!-- Ana Sayfa -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
     <url>
-        <loc>https://modebases.com/</loc>
-        <lastmod>2026-10-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
+        <loc>https://www.modbases.com/</loc>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://www.modbases.com/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.modbases.com/en/dashboard"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://www.modbases.com/de/dashboard"/>
     </url>
-    <!-- Örnek Oyun / Kategori Sayfaları (Kendi URL yapına göre düzenleyebilirsin) -->
+
     <url>
-        <loc>https://modebases.com/ets2-modlar</loc>
-        <lastmod>2026-10-15</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.9</priority>
+        <loc>https://www.modbases.com/en/dashboard</loc>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://www.modbases.com/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.modbases.com/en/dashboard"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://www.modbases.com/de/dashboard"/>
     </url>
+
     <url>
-        <loc>https://modebases.com/minecraft</loc>
-        <lastmod>2026-10-15</lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
+        <loc>https://www.modbases.com/de/dashboard</loc>
+        <xhtml:link rel="alternate" hreflang="tr" href="https://www.modbases.com/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://www.modbases.com/en/dashboard"/>
+        <xhtml:link rel="alternate" hreflang="de" href="https://www.modbases.com/de/dashboard"/>
     </url>
+
 </urlset>
