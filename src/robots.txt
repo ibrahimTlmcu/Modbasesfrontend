@@ -1,7 +1,8 @@
 User-agent: *
 Allow: /
+Allow: /api/categories
+Allow: /api/mods
 
-Disallow: /api/
 Disallow: /admin/
 Disallow: /panel/
 Disallow: /auth/
