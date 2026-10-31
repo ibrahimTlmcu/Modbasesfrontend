@@ -661,8 +661,8 @@ export class Dashboard implements OnInit, OnDestroy {
 
         this.seoService.updateSeo(seo.title, seo.description, {
             tr: '/',
-            en: '/en/dashboard',
-            de: '/de/dashboard'
+            en: '/en',
+            de: '/de'
         });
     }
 

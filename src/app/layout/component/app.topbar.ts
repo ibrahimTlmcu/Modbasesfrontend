@@ -23,8 +23,7 @@ import { map, shareReplay, switchMap, catchError } from 'rxjs/operators';
                 <button class="layout-menu-button layout-topbar-action glass-btn" (click)="layoutService.onMenuToggle()">
                     <i class="pi pi-bars"></i>
                 </button>
-
-                <a class="layout-topbar-logo flex items-center" [routerLink]="localizedRoute('dashboard')">
+                <a class="layout-topbar-logo flex items-center" [routerLink]="localizedRoute()">
                     <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
                         <path
                             fill-rule="evenodd"

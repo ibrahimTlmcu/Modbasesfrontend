@@ -46,7 +46,7 @@ export class LoginComponent {
                 if (isAdmin) {
                     this.router.navigate(['/admin']);
                 } else {
-                    this.router.navigate(['/dashboard']);
+                    this.router.navigate(['/']);
                 }
             },
             error: (err) => {

@@ -196,7 +196,7 @@ export class AppMenu implements OnInit, OnDestroy {
                     {
                         label: labels.home,
                         icon: 'pi pi-fw pi-home',
-                        routerLink: this.localizedLink('dashboard')
+                        routerLink: this.localizedLink()
                     }
                 ]
             },
@@ -214,11 +214,15 @@ export class AppMenu implements OnInit, OnDestroy {
                 label: labels.tools,
                 items: [
                     ...programItems,
-                    ...(programItems.length === 0 ? [{
-                        label: labels.programs,
-                        icon: 'pi pi-fw pi-question-circle',
-                        routerLink: this.localizedLink('programlar')
-                    }] : [])
+                    ...(programItems.length === 0
+                        ? [
+                              {
+                                  label: labels.programs,
+                                  icon: 'pi pi-fw pi-question-circle',
+                                  routerLink: this.localizedLink('programlar')
+                              }
+                          ]
+                        : [])
                 ]
             },
 
