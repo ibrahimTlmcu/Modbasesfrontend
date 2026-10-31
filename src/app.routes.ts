@@ -85,8 +85,8 @@ export const adminGuard: CanActivateFn = () => {
     return false;
 };
 const localizedPublicChildren = (): Routes => [
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-    { path: 'dashboard', component: Dashboard },
+    { path: '', component: Dashboard, pathMatch: 'full' },
+    { path: 'dashboard', redirectTo: '', pathMatch: 'full' },
     { path: 'landing', component: Landing },
 
     { path: 'gizlilik-politikasi', component: GizlilikPolitikasiComponent },
@@ -122,7 +122,8 @@ export const appRoutes: Routes = [
         path: '',
         component: AppLayout,
         children: [
-            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+            { path: '', component: Dashboard, pathMatch: 'full' },
+            { path: 'dashboard', redirectTo: '', pathMatch: 'full' },
 
             // SADECE ADMİNİN GİREBİLECEĞİ SAYFA
             {
